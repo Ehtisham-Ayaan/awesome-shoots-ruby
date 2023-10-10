@@ -5,7 +5,8 @@ if Rails.application.config.x.cors_allowed_origins
 
       resource '*',
         headers: :any,
-        methods: [:get, :post, :put, :patch, :delete, :options, :head],
+        methods: [:get, :post, :put, :patch, :delete, :options, :head], 
+        expose: %w(Authorization),
         credentials:true
     end
   end
