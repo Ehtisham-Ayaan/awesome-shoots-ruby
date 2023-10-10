@@ -46,6 +46,8 @@ gem "bootsnap", require: false
 
 #Authentication purpose
 gem 'devise'
+gem 'devise-jwt'
+gem 'fast_jsonapi'
 
 #get json data from frontend
 gem "jsonapi-serializer"
@@ -56,6 +58,7 @@ gem 'rack-cors'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'dotenv-rails'
 end
 
 group :development do
