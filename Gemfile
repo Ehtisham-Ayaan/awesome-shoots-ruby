@@ -47,7 +47,6 @@ gem "bootsnap", require: false
 #Authentication purpose
 gem 'devise'
 gem 'devise-jwt'
-gem 'fast_jsonapi'
 
 #get json data from frontend
 gem "jsonapi-serializer"

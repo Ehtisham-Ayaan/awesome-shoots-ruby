@@ -6,16 +6,16 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    token = generate_jwt
     render json: {
-      status: {code: 200, message: 'Logged in sucessfully.', token: token},
+      status: {code: 200, message: 'Logged in sucessfully.'},
       data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
     }, status: :ok
   end
 
   def respond_to_on_destroy
+
     if request.headers['Authorization'].present?
-      jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, Rails.application.credentials.devise_jwt_secret_key!).first
+      jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, ENV['DEVISE_JWT_SECRET_KEY']).first
       current_user = User.find(jwt_payload['sub'])
     end
     if current_user
@@ -29,9 +29,5 @@ class Users::SessionsController < Devise::SessionsController
         message: "Couldn't find an active session."
       }, status: :unauthorized
     end
-  end
-
-  def generate_jwt
-    JWT.encode({id: current_user.id, exp: 3.minutes.from_now.to_i}, Rails.application.credentials.secret_key_base)
   end
 end
